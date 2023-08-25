@@ -13,7 +13,6 @@ import io.netty.util.CharsetUtil;
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        super.channelRead(ctx, msg);
         ByteBuf in = (ByteBuf) msg;
         System.out.println("Server received: " + in.toString(CharsetUtil.UTF_8));
         // 将接收到的消息写给发送者, 而不冲刷出站消息
@@ -22,7 +21,6 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        super.channelReadComplete(ctx);
         // 将未决消息冲刷到远程节点, 并且关闭该 Channel
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
             .addListener(ChannelFutureListener.CLOSE);
