@@ -33,6 +33,7 @@ public class EchoClient {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
+//                    .localAddress(port)
                     .remoteAddress(host, port)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
