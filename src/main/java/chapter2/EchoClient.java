@@ -18,8 +18,8 @@ public class EchoClient {
     }
 
     public static void main(String[] args) {
-        String host = "localhost";
-        int port = Integer.parseInt("8080");
+        String host = "192.168.1.5";
+        int port = Integer.parseInt("9191");
         try {
             new EchoClient(host, port).start();
         } catch (InterruptedException e) {

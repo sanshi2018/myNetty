@@ -25,7 +25,7 @@ public class EchoServer {
 //                " <port>");
 //        }
         // 设置端口值(如果端口参数的格式不正确, 则抛出一个NumberFormatException)
-        int port = Integer.parseInt("8080");
+        int port = Integer.parseInt("9191");
         // 调用服务器的 start() 方法
         new EchoServer(port).start();
     }
