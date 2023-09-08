@@ -21,8 +21,10 @@ public class FixedLengthFrameDecoderTest {
         EmbeddedChannel channel = new EmbeddedChannel(
                 new FixedLengthFrameDecoder(3));// 创建一个 EmbeddedChannel，并添加一个 FixedLengthFrameDecoder，其将以 3 字节的帧长度被测试
         // write bytes
+        // 防止buf被过早回收，引用计数器++
+        input.retain();
         //失败的断言将导致一个异常被抛出，并将终止当前正在执行中的测试
-        assertTrue(channel.writeInbound(input.retain())); // 将该 ByteBuf 传入到 decode() 方法
+        assertTrue(channel.writeInbound(input)); // 将该 ByteBuf 传入到 decode() 方法
         assertTrue(channel.finish()); // 标记 Channel 为已完成状态
 
         // read messages
