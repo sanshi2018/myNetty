@@ -39,9 +39,12 @@ def on_open(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
+    # 指定ws的编码格式为utf-8
+
     ws = websocket.WebSocketApp("ws://localhost:8080/ws",
                                 on_message=on_message,
                                 on_error=on_error,
                                 on_close=on_close)
+    
     ws.on_open = on_open
     ws.run_forever()
