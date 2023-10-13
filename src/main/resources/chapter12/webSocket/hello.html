@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <script>
+    var ws;
+    if (window.WebSocket) {
+      var ws = new WebSocket("ws://localhost:8080/ws");
+      ws.onopen = function () {
+        var rt = document.getElementById("responseText");
+        rt.value = "连接成功";
+      };
+      ws.onmessage = function (event) {
+        console.log("收到服务端的消息：" + event);
+        var rt = document.getElementById("responseText");
+        rt.value = rt.value + "\n" + event.data;
+      };
+      ws.onclose = function () {
+        var rt = document.getElementById("responseText");
+        rt.value = "连接关闭";
+      };
+      ws.onerror = function () {
+        var rt = document.getElementById("responseText");
+        rt.value = "连接异常";
+      };
+
+    } else {
+      alert("您的浏览器不支持WebSocket");
+    }
+
+    function send() {
+      // if (!window.socket) {
+      //   alert("请先连接");
+      //   return;
+      // }
+      // if (socket.readyState != WebSocket.OPEN) {
+      //   alert("连接没有开启");
+      //   return;
+      // }
+      var msg = document.getElementById("msg").value;
+      ws.send(msg);
+    }
+
+  </script>
+
+  <form onsubmit="return false;">
+    <textarea name="message" id="msg" cols="30" rows="10"></textarea>
+    <input type="button" value="发送" onclick="send(this.form.message.value)" />
+    <textarea id="responseText" cols="30" rows="10"></textarea>
+    <input type="button" value="清理" onclick="document.getElementById('responseText').value=''">
+  </form>
+</body>
+</html>
